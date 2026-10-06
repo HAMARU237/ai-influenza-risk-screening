@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Influenza Information | AI Risk Screening</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, "Noto Sans Thai", sans-serif;
+            background:
+                radial-gradient(circle at top, #241010 0%, #090909 45%, #000 100%);
+            color: #eeeeee;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: rgba(5, 5, 5, 0.95);
+            border-bottom: 1px solid #5c1111;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: #e32626;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #999;
+            font-size: 12px;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ccc;
+            border: 1px solid #3d3d3d;
+            padding: 9px 15px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #fff;
+            border-color: #d71920;
+            background: #260707;
+        }
+
+        nav a.active {
+            color: #fff;
+            border-color: #d71920;
+            background: #7d1111;
+        }
+
+        /* ================= MAIN ================= */
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 0 70px;
+        }
+
+        .hero {
+            border-left: 4px solid #d71920;
+            padding-left: 22px;
+            margin-bottom: 40px;
+        }
+
+        .hero-code {
+            color: #d71920;
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 52px);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ================= WARNING ================= */
+
+        .warning {
+            background: #210707;
+            border: 1px solid #7d1717;
+            padding: 18px 20px;
+            margin-bottom: 35px;
+            border-radius: 5px;
+        }
+
+        .warning-title {
+            color: #ff3b3b;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .warning p {
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        /* ================= CARDS ================= */
+
+        .info-card {
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid #333;
+            border-left: 3px solid #8d1515;
+            padding: 28px;
+            margin-bottom: 22px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+
+        .info-card h2 {
+            color: #e32626;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .info-card ul {
+            margin-left: 22px;
+            color: #ccc;
+        }
+
+        .info-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #ff5555;
+            font-weight: bold;
+        }
+
+        /* ================= SYMPTOMS ================= */
+
+        .symptoms {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .symptom {
+            background: #111;
+            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 4px;
+            color: #ddd;
+        }
+
+        .symptom::before {
+            content: "▸ ";
+            color: #d71920;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid #2d2d2d;
+            background: #050505;
+            padding: 25px 5%;
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 750px) {
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            nav a {
+                flex: 1;
+                text-align: center;
+            }
+
+            main {
+                width: 92%;
+                padding-top: 35px;
+            }
+
+            .symptoms {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            ☣ AI INFLUENZA
+            <span>RISK SCREENING SYSTEM</span>
+        </div>
+
+        <nav>
+            <a href="/">หน้าประเมินความเสี่ยง</a>
+            <a href="/info" class="active">ข้อมูลไข้หวัดใหญ่</a>
+            <a href="/logout">ออกจากระบบ</a>
+        </nav>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-code">
+                BIOHAZARD DATABASE // 02
+            </div>
+
+            <h1>
+                INFLUENZA<br>
+                INFORMATION
+            </h1>
+
+            <p>
+                ข้อมูลเบื้องต้นเกี่ยวกับโรคไข้หวัดใหญ่
+                อาการ การแพร่กระจาย และแนวทางการป้องกัน
+            </p>
+
+        </section>
+
+
+        <!-- WARNING -->
+        <section class="warning">
+
+            <div class="warning-title">
+                ⚠ IMPORTANT INFORMATION
+            </div>
+
+            <p>
+                ข้อมูลในหน้านี้มีวัตถุประสงค์เพื่อให้ความรู้เบื้องต้น
+                และไม่สามารถใช้แทนการตรวจวินิจฉัยหรือคำแนะนำจากบุคลากรทางการแพทย์ได้
+            </p>
+
+        </section>
+
+
+        <!-- SECTION 1 -->
+        <section class="info-card">
+
+            <h2>01 // ไข้หวัดใหญ่คืออะไร?</h2>
+
+            <p>
+                ไข้หวัดใหญ่ (Influenza) เป็นโรคติดเชื้อของระบบทางเดินหายใจ
+                ที่เกิดจากเชื้อไวรัสไข้หวัดใหญ่ โดยสามารถแพร่กระจายจากคนสู่คนได้
+            </p>
+
+            <p>
+                โรคนี้สามารถเกิดขึ้นได้ตลอดทั้งปี แต่ในบางช่วงเวลาอาจพบการระบาด
+                หรือมีผู้ป่วยเพิ่มขึ้นเป็นจำนวนมาก
+            </p>
+
+        </section>
+
+
+        <!-- SECTION 2 -->
+        <section class="info-card">
+
+            <h2>02 // อาการที่พบบ่อย</h2>
+
+            <p>
+                ผู้ที่ติดเชื้อไข้หวัดใหญ่อาจมีอาการแตกต่างกัน
+                โดยอาการที่พบได้ ได้แก่
+            </p>
+
+            <div class="symptoms">
+
+                <div class="symptom">มีไข้</div>
+                <div class="symptom">ไอ</div>
+                <div class="symptom">เจ็บคอ</div>
+                <div class="symptom">น้ำมูกไหล</div>
+                <div class="symptom">ปวดศีรษะ</div>
+                <div class="symptom">ปวดกล้ามเนื้อ</div>
+                <div class="symptom">หนาวสั่น</div>
+                <div class="symptom">อ่อนเพลีย</div>
+                <div class="symptom">รู้สึกไม่สบาย</div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 3 -->
+        <section class="info-card">
+
+            <h2>03 // การแพร่กระจาย</h2>
+
+            <p>
+                ไข้หวัดใหญ่สามารถแพร่กระจายผ่านละอองจากระบบทางเดินหายใจ
+                เมื่อผู้ติดเชื้อไอ จาม หรือพูดคุย
+            </p>
+
+            <ul>
+                <li>การสัมผัสละอองจากผู้ติดเชื้อ</li>
+                <li>การอยู่ใกล้ชิดกับผู้ที่มีอาการป่วย</li>
+                <li>การสัมผัสพื้นผิวหรือสิ่งของที่มีเชื้อแล้วนำมือไปสัมผัสใบหน้า</li>
+            </ul>
+
+        </section>
+
+
+        <!-- SECTION 4 -->
+        <section class="info-card">
+
+            <h2>04 // กลุ่มที่ควรระวัง</h2>
+
+            <p>
+                บางกลุ่มอาจมีความเสี่ยงที่จะเกิดอาการรุนแรงมากกว่าคนทั่วไป
+                จึงควรให้ความสำคัญกับการป้องกันและการดูแลสุขภาพ
+            </p>
+
+            <ul>
+                <li>ผู้สูงอายุ</li>
+                <li>เด็กเล็ก</li>
+                <li>หญิงตั้งครรภ์</li>
+                <li>ผู้ที่มีโรคประจำตัวบางชนิด</li>
+                <li>ผู้ที่มีภูมิคุ้มกันอ่อนแอ</li>
+            </ul>
+
+        </section>
+
+
+        <!-- SECTION 5 -->
+        <section class="info-card">
+
+            <h2>05 // วิธีป้องกัน</h2>
+
+            <ul>
+                <li>ล้างมือด้วยสบู่และน้ำ หรือใช้แอลกอฮอล์ทำความสะอาดมือ</li>
+                <li>หลีกเลี่ยงการใกล้ชิดกับผู้ที่มีอาการป่วย</li>
+                <li>ปิดปากและจมูกเมื่อไอหรือจาม</li>
+                <li>หลีกเลี่ยงการใช้ของส่วนตัวร่วมกับผู้อื่น</li>
+                <li>พักผ่อนให้เพียงพอและดูแลสุขภาพ</li>
+                <li>พิจารณาการรับวัคซีนไข้หวัดใหญ่ตามคำแนะนำของบุคลากรทางการแพทย์</li>
+            </ul>
+
+        </section>
+
+
+        <!-- SECTION 6 -->
+        <section class="info-card">
+
+            <h2>06 // เมื่อไหร่ควรพบแพทย์?</h2>
+
+            <p>
+                หากมีอาการป่วยและอาการรุนแรงขึ้น หรือมีอาการที่น่าเป็นห่วง
+                ควรติดต่อบุคลากรทางการแพทย์เพื่อรับการประเมินอย่างเหมาะสม
+            </p>
+
+            <p>
+                โดยเฉพาะผู้ที่อยู่ในกลุ่มเสี่ยง ควรปรึกษาแพทย์เมื่อมีอาการผิดปกติ
+            </p>
+
+        </section>
+
+
+        <!-- SECTION 7 -->
+        <section class="info-card">
+
+            <h2>07 // เกี่ยวกับระบบ AI Risk Screening</h2>
+
+            <p>
+                เว็บไซต์นี้จัดทำขึ้นเพื่อเป็นโครงงานระบบคัดกรองความเสี่ยง
+                จากข้อมูลอาการเบื้องต้นของผู้ใช้งาน
+            </p>
+
+            <p>
+                <span class="highlight">
+                    ผลการประเมินจากระบบไม่ใช่การวินิจฉัยโรค
+                </span>
+                และไม่ควรใช้แทนการตรวจจากแพทย์หรือบุคลากรทางการแพทย์
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        ☣ AI INFLUENZA RISK SCREENING SYSTEM
+
+        <br>
+
+        ระบบคัดกรองความเสี่ยงไข้หวัดใหญ่สำหรับโครงงานการศึกษา
+
+    </footer>
+
+</body>
+</html>

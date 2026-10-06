@@ -1,0 +1,994 @@
+/* =========================================
+   AI INFLUENZA
+   SURVIVAL HORROR / BIOHAZARD THEME
+   ========================================= */
+
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+:root {
+
+    --blood: #b30000;
+
+    --blood-light: #e00000;
+
+    --dark: #080808;
+
+    --dark-2: #111111;
+
+    --dark-3: #1b1b1b;
+
+    --border: #393939;
+
+    --text: #eeeeee;
+
+    --muted: #999999;
+
+    --warning: #d8a400;
+
+}
+
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #202020 0%,
+            #090909 55%,
+            #030303 100%
+        );
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+}
+
+
+/* =========================================
+   SCREEN EFFECT
+   ========================================= */
+
+.dark-horror {
+
+    position: relative;
+
+}
+
+
+.scanlines {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    background:
+
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.015),
+            rgba(255,255,255,0.015) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    opacity: 0.25;
+
+}
+
+
+/* =========================================
+   LOGIN
+   ========================================= */
+
+.login-page,
+.register-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+
+.login-card,
+.register-card {
+
+    width: 100%;
+
+    max-width: 460px;
+
+    padding: 45px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #171717,
+            #090909
+        );
+
+    border:
+
+        1px solid
+        #3a3a3a;
+
+    border-top:
+
+        3px solid
+        var(--blood);
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(0,0,0,0.75),
+
+        0 0 35px
+        rgba(179,0,0,0.10);
+
+    position: relative;
+
+}
+
+
+/* Corner */
+
+.login-card::before,
+.register-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    width: 22px;
+    height: 22px;
+
+    border-top:
+        2px solid
+        var(--blood);
+
+    border-left:
+        2px solid
+        var(--blood);
+
+}
+
+
+.login-card::after,
+.register-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: 12px;
+    bottom: 12px;
+
+    width: 22px;
+    height: 22px;
+
+    border-right:
+        2px solid
+        var(--blood);
+
+    border-bottom:
+        2px solid
+        var(--blood);
+
+}
+
+
+/* =========================================
+   BIOHAZARD ICON
+   ========================================= */
+
+.biohazard-logo {
+
+    width: 85px;
+    height: 85px;
+
+    margin:
+
+        0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+
+        1px solid
+        #555;
+
+    border-radius: 50%;
+
+    color: var(--blood-light);
+
+    font-size: 48px;
+
+    text-shadow:
+
+        0 0 15px
+        rgba(255,0,0,0.7);
+
+    background:
+
+        radial-gradient(
+            circle,
+            #222,
+            #090909
+        );
+
+    box-shadow:
+
+        inset 0 0 20px
+        rgba(0,0,0,0.9),
+
+        0 0 20px
+        rgba(179,0,0,0.12);
+
+}
+
+
+/* =========================================
+   TEXT
+   ========================================= */
+
+.system-label {
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.login-card h1,
+.register-card h1 {
+
+    text-align: center;
+
+    color: #eee;
+
+    font-size: 34px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.login-subtitle,
+.register-subtitle {
+
+    text-align: center;
+
+    color: #999;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.horror-error {
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    background:
+
+        rgba(150,0,0,0.15);
+
+    border:
+
+        1px solid
+        #8f0000;
+
+    border-left:
+
+        4px solid
+        var(--blood-light);
+
+    color: #ff8b8b;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.dark-form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.dark-form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #cfcfcf;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.dark-form-group input {
+
+    width: 100%;
+
+    padding: 15px;
+
+    background: #0c0c0c;
+
+    color: #eee;
+
+    border:
+
+        1px solid
+        #444;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: 0.2s;
+
+}
+
+
+.dark-form-group input::placeholder {
+
+    color: #555;
+
+}
+
+
+.dark-form-group input:focus {
+
+    border-color:
+        var(--blood-light);
+
+    box-shadow:
+
+        0 0 0 2px
+        rgba(224,0,0,0.10);
+
+}
+
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.red-button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 8px;
+
+    border: none;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8f0000,
+            #c90000
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.red-button:hover {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #b00000,
+            #ef0000
+        );
+
+    box-shadow:
+
+        0 0 20px
+        rgba(224,0,0,0.25);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================
+   REGISTER LINK
+   ========================================= */
+
+.register-divider {
+
+    text-align: center;
+
+    color: #555;
+
+    margin: 25px 0;
+
+    font-size: 13px;
+
+}
+
+
+.register-button,
+.back-login {
+
+    display: block;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    padding: 13px;
+
+    border:
+
+        1px solid
+        #444;
+
+    color: #bbb;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    transition: 0.2s;
+
+}
+
+
+.register-button:hover,
+.back-login:hover {
+
+    border-color:
+        var(--blood);
+
+    color: white;
+
+    background:
+
+        rgba(179,0,0,0.08);
+
+}
+
+
+/* =========================================
+   WARNING
+   ========================================= */
+
+.security-warning {
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    background:
+
+        rgba(150,100,0,0.08);
+
+    border:
+
+        1px solid
+        #51420c;
+
+    color: #bca95d;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    text-align: center;
+
+}
+
+
+/* =========================================
+   SYSTEM STATUS
+   ========================================= */
+
+.terminal-footer {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.terminal-footer span {
+
+    color: #55a34a;
+
+}
+
+
+/* =========================================
+   MAIN APPLICATION
+   ========================================= */
+
+.container {
+
+    width: 92%;
+
+    max-width: 1050px;
+
+    margin: auto;
+
+}
+
+
+/* Header */
+
+header {
+
+    padding: 35px;
+
+    margin-top: 30px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #171717,
+            #0b0b0b
+        );
+
+    border:
+
+        1px solid
+        #333;
+
+    border-left:
+
+        4px solid
+        var(--blood);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.logo {
+
+    font-size: 50px;
+
+    color: var(--blood-light);
+
+}
+
+
+header h1 {
+
+    font-size: 30px;
+
+    letter-spacing: 2px;
+
+}
+
+
+header p {
+
+    color: #888;
+
+    margin-top: 6px;
+
+}
+
+
+/* Main */
+
+main {
+
+    margin-top: 25px;
+
+    background: #111;
+
+    border: 1px solid #2d2d2d;
+
+    padding: 30px;
+
+}
+
+
+main > h2 {
+
+    color: #ddd;
+
+    border-bottom:
+
+        1px solid
+        #333;
+
+    padding-bottom: 15px;
+
+}
+
+
+.description {
+
+    color: #777;
+
+    margin: 12px 0 25px;
+
+}
+
+
+/* Sections */
+
+section {
+
+    margin-bottom: 30px;
+
+}
+
+
+section h3 {
+
+    color: #bbb;
+
+    font-size: 17px;
+
+    margin-bottom: 15px;
+
+    border-left:
+
+        3px solid
+        var(--blood);
+
+    padding-left: 10px;
+
+}
+
+
+/* Form */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.form-group label {
+
+    color: #aaa;
+
+    margin-bottom: 8px;
+
+}
+
+
+.form-group input,
+.form-group select {
+
+    padding: 13px;
+
+    background: #080808;
+
+    color: #eee;
+
+    border: 1px solid #3a3a3a;
+
+    outline: none;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+
+    border-color:
+        var(--blood);
+
+}
+
+
+/* Symptoms */
+
+.symptoms {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+}
+
+
+.checkbox {
+
+    padding: 13px;
+
+    border:
+
+        1px solid
+        #333;
+
+    background: #171717;
+
+    color: #aaa;
+
+    cursor: pointer;
+
+}
+
+
+.checkbox:hover {
+
+    border-color:
+        #7b0000;
+
+    color: white;
+
+}
+
+
+.checkbox input {
+
+    margin-right: 8px;
+
+    accent-color:
+        var(--blood-light);
+
+}
+
+
+/* Prediction */
+
+.predict-button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8c0000,
+            #c80000
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+}
+
+
+.predict-button:hover {
+
+    background:
+        #e00000;
+
+}
+
+
+/* Result */
+
+.result {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #0b0b0b;
+
+    border:
+
+        1px solid
+        #333;
+
+    text-align: center;
+
+}
+
+
+.high-risk {
+
+    color: #ff3030;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+}
+
+
+.warning {
+
+    margin-top: 20px;
+
+    padding: 16px;
+
+    background:
+
+        rgba(150,100,0,0.08);
+
+    border-left:
+
+        4px solid
+        #b58b00;
+
+    color: #bca95d;
+
+    line-height: 1.7;
+
+}
+
+
+footer {
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #555;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .login-card,
+    .register-card {
+
+        padding: 30px 22px;
+
+    }
+
+
+    .login-card h1,
+    .register-card h1 {
+
+        font-size: 27px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .symptoms {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    header {
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+
+    main {
+
+        padding: 20px;
+
+    }
+
+}

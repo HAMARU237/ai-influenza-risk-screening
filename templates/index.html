@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Influenza Risk Screening
+    </title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            font-family:
+                Arial,
+                "Noto Sans Thai",
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #252525 0%,
+                    #111111 45%,
+                    #050505 100%
+                );
+
+            color: #eeeeee;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            background: #090909;
+
+            border-bottom:
+                1px solid #7a1111;
+
+            box-shadow:
+                0 4px 25px rgba(0,0,0,0.8);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+        .header-container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 18px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            border:
+                1px solid #b51d1d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            color: #ff3333;
+
+            background: #150505;
+
+        }
+
+
+        .brand-title {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+        }
+
+
+        .brand-subtitle {
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            color: #888888;
+
+            margin-top: 4px;
+
+        }
+
+
+        .system-status {
+
+            color: #62d66f;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            text-align: right;
+
+        }
+
+
+        .user-name {
+
+            color: #777777;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+
+            text-align: right;
+
+        }
+
+
+        /* =====================================================
+           NAV
+        ===================================================== */
+
+        .nav {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 0 25px 12px;
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .nav a {
+
+            text-decoration: none;
+
+            color: #bbbbbb;
+
+            border:
+                1px solid #333333;
+
+            background: #111111;
+
+            padding: 9px 13px;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .nav a:hover {
+
+            color: white;
+
+            border-color: #a51616;
+
+            background: #1b0707;
+
+        }
+
+
+        .nav .danger {
+
+            color: #ff5a5a;
+
+            border-color: #771515;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 40px 20px 70px;
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            border:
+                1px solid #3c3c3c;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #171717,
+                    #0d0d0d
+                );
+
+            padding: 45px;
+
+            margin-bottom: 25px;
+
+            position: relative;
+
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            width: 5px;
+
+            height: 100%;
+
+            background: #a91515;
+
+        }
+
+
+        .hero-label {
+
+            color: #b52a2a;
+
+            font-size: 12px;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size: 42px;
+
+            line-height: 1.1;
+
+            margin-bottom: 15px;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .hero p {
+
+            color: #999999;
+
+            max-width: 800px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           WARNING
+        ===================================================== */
+
+        .warning {
+
+            background: #1b0b0b;
+
+            border:
+                1px solid #762020;
+
+            padding: 16px 20px;
+
+            margin-bottom: 25px;
+
+            color: #d5a0a0;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            background: #111111;
+
+            border:
+                1px solid #333333;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.3);
+
+        }
+
+
+        .card-header {
+
+            background: #181818;
+
+            border-bottom:
+                1px solid #333333;
+
+            padding: 18px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .section-number {
+
+            color: #ff3535;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .card-header h2 {
+
+            font-size: 17px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .card-body {
+
+            padding: 25px;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+        .form-group.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        label {
+
+            color: #aaaaaa;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            background: #080808;
+
+            border:
+                1px solid #3a3a3a;
+
+            color: #ffffff;
+
+            outline: none;
+
+            font-size: 14px;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #a71919;
+
+            box-shadow:
+                0 0 10px rgba(170,0,0,0.15);
+
+        }
+
+
+        /* =====================================================
+           SYMPTOMS
+        ===================================================== */
+
+        .symptom-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+        }
+
+
+        .symptom-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 13px;
+
+            background: #0a0a0a;
+
+            border:
+                1px solid #303030;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .symptom-item:hover {
+
+            border-color: #6e1818;
+
+            background: #150707;
+
+        }
+
+
+        .symptom-item input {
+
+            width: 17px;
+
+            height: 17px;
+
+            accent-color: #b51d1d;
+
+        }
+
+
+        .symptom-item span {
+
+            font-size: 13px;
+
+            color: #cccccc;
+
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .action-area {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+        }
+
+
+        .btn-main {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9c1414,
+                    #570707
+                );
+
+            color: white;
+
+            padding: 16px 35px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            border:
+                1px solid #c52a2a;
+
+            transition: 0.2s;
+
+        }
+
+
+        .btn-main:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #c21b1b,
+                    #740b0b
+                );
+
+            box-shadow:
+                0 0 20px rgba(180,0,0,0.3);
+
+        }
+
+
+        /* =====================================================
+           RESULT
+        ===================================================== */
+
+        #result {
+
+            margin-top: 25px;
+
+        }
+
+
+        .result {
+
+            padding: 28px;
+
+            border:
+                1px solid #444444;
+
+            background: #0b0b0b;
+
+        }
+
+
+        .result-title {
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+
+            color: #999999;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .result-text {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+        }
+
+
+        .result-high {
+
+            border-color: #8d1616;
+
+            background: #1c0707;
+
+        }
+
+
+        .result-high .result-text {
+
+            color: #ff4141;
+
+        }
+
+
+        .result-medium {
+
+            border-color: #89651a;
+
+            background: #171205;
+
+        }
+
+
+        .result-medium .result-text {
+
+            color: #e7bd4c;
+
+        }
+
+
+        .result-low {
+
+            border-color: #276b38;
+
+            background: #07150b;
+
+        }
+
+
+        .result-low .result-text {
+
+            color: #64d87b;
+
+        }
+
+
+        .result-info {
+
+            margin-top: 15px;
+
+            color: #999999;
+
+            font-size: 13px;
+
+            line-height: 2;
+
+        }
+
+
+        /* =====================================================
+           MEDICAL NOTE
+        ===================================================== */
+
+        .medical-note {
+
+            border:
+                1px solid #4c3434;
+
+            background: #160d0d;
+
+            padding: 20px;
+
+            color: #bda5a5;
+
+            line-height: 1.8;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            border-top:
+                1px solid #2c2c2c;
+
+            background: #080808;
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #666666;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .header-container {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .system-status,
+            .user-name {
+
+                text-align: left;
+
+            }
+
+
+            .nav {
+
+                justify-content: flex-start;
+
+            }
+
+
+            .hero {
+
+                padding: 30px 25px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .symptom-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .symptom-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            main {
+
+                padding:
+                    25px 12px 50px;
+
+            }
+
+
+            .hero {
+
+                padding: 25px 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="header-container">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ☣
+            </div>
+
+            <div>
+
+                <div class="brand-title">
+                    AI INFLUENZA
+                </div>
+
+                <div class="brand-subtitle">
+                    RISK SCREENING SYSTEM
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="system-status">
+                ● SYSTEM ONLINE
+            </div>
+
+            <div class="user-name">
+
+                ผู้ใช้:
+                {{ username }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================= -->
+
+    <nav class="nav">
+
+        <a href="{{ url_for('home') }}">
+            หน้าคัดกรอง
+        </a>
+
+
+        <a href="{{ url_for('info') }}">
+            ข้อมูลไข้หวัดใหญ่
+        </a>
+
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="danger"
+        >
+            ออกจากระบบ
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            INFLUENZA SCREENING / 01
+        </div>
+
+
+        <h1>
+
+            ประเมินความเสี่ยง<br>
+
+            โรคไข้หวัดใหญ่
+
+        </h1>
+
+
+        <p>
+
+            ระบบคัดกรองอาการเบื้องต้น
+            โดยใช้ข้อมูลทั่วไป อุณหภูมิ
+            และอาการของผู้ใช้งาน
+            เพื่อประเมินระดับความเสี่ยง
+
+        </p>
+
+    </section>
+
+
+
+    <!-- WARNING -->
+
+    <div class="warning">
+
+        ⚠
+
+        <strong>
+            NOTICE:
+        </strong>
+
+        ระบบนี้เป็นระบบคัดกรองสำหรับโครงงาน
+        ไม่ใช่เครื่องมือวินิจฉัยโรค
+        ผลการประเมินไม่สามารถใช้แทนคำวินิจฉัยจากแพทย์ได้
+
+    </div>
+
+
+
+    <!-- =================================================
+         FORM
+    ================================================= -->
+
+    <form id="screeningForm">
+
+
+        <!-- =============================================
+             SECTION 01
+        ============================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div class="section-number">
+                    01
+                </div>
+
+                <h2>
+                    ข้อมูลทั่วไป
+                </h2>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="form-grid">
+
+
+                    <!-- AGE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            อายุ
+                        </label>
+
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            min="0"
+                            max="120"
+                            placeholder="เช่น 20"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label>
+                            เพศ
+                        </label>
+
+                        <select
+                            id="gender"
+                            name="gender"
+                            required
+                        >
+
+                            <option value="">
+                                -- เลือกเพศ --
+                            </option>
+
+                            <option value="ชาย">
+                                ชาย
+                            </option>
+
+                            <option value="หญิง">
+                                หญิง
+                            </option>
+
+                            <option value="อื่น ๆ">
+                                อื่น ๆ
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEMPERATURE -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            อุณหภูมิร่างกาย (°C)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="temperature"
+                            name="temperature"
+                            min="30"
+                            max="45"
+                            step="0.1"
+                            placeholder="เช่น 38.5"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             SECTION 02
+        ============================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div class="section-number">
+                    02
+                </div>
+
+                <h2>
+                    อาการและปัจจัยเสี่ยง
+                </h2>
+
+            </div>
+
+
+            <div class="card-body">
+
+
+                <label
+                    style="
+                        display:block;
+                        margin-bottom:15px;
+                    "
+                >
+
+                    เลือกอาการที่มี
+
+                </label>
+
+
+                <div class="symptom-grid">
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="มีไข้"
+                        >
+
+                        <span>
+                            มีไข้
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="ไอ"
+                        >
+
+                        <span>
+                            ไอ
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="เจ็บคอ"
+                        >
+
+                        <span>
+                            เจ็บคอ
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="น้ำมูกไหล"
+                        >
+
+                        <span>
+                            น้ำมูกไหล
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="ปวดศีรษะ"
+                        >
+
+                        <span>
+                            ปวดศีรษะ
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="ปวดกล้ามเนื้อ"
+                        >
+
+                        <span>
+                            ปวดกล้ามเนื้อ
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="หนาวสั่น"
+                        >
+
+                        <span>
+                            หนาวสั่น
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="อ่อนเพลีย"
+                        >
+
+                        <span>
+                            อ่อนเพลีย
+                        </span>
+
+                    </label>
+
+
+                    <label class="symptom-item">
+
+                        <input
+                            type="checkbox"
+                            name="symptoms"
+                            value="สัมผัสผู้ป่วย"
+                        >
+
+                        <span>
+                            สัมผัสผู้ป่วย
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             SECTION 03
+        ============================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div class="section-number">
+                    03
+                </div>
+
+                <h2>
+                    ประเมินความเสี่ยง
+                </h2>
+
+            </div>
+
+
+            <div class="card-body">
+
+
+                <div class="warning">
+
+                    ระบบจะประเมินจากข้อมูลที่กรอก
+                    และแสดงผลทันทีบนหน้านี้
+
+                    <br><br>
+
+                    <strong>
+                        DEMO RULE:
+                    </strong>
+
+                    การประเมินในเวอร์ชันนี้
+                    ใช้จำนวนอาการเป็นเกณฑ์ตัวอย่าง
+                    และยังไม่ใช่ Machine Learning Model จริง
+
+                </div>
+
+
+                <div class="action-area">
+
+                    <button
+                        type="submit"
+                        class="btn-main"
+                    >
+
+                        ☣ ประเมินความเสี่ยง
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div id="result"></div>
+
+
+            </div>
+
+        </section>
+
+
+    </form>
+
+
+
+    <!-- =================================================
+         MEDICAL WARNING
+    ================================================= -->
+
+    <div class="medical-note">
+
+        <strong>
+            ⚠ คำเตือนด้านการแพทย์
+        </strong>
+
+        <br><br>
+
+        ผลลัพธ์จากระบบนี้เป็นเพียงการคัดกรองเบื้องต้น
+        สำหรับวัตถุประสงค์ของโครงงานเท่านั้น
+        ไม่ควรใช้เพื่อวินิจฉัยโรค
+        หรือใช้แทนคำแนะนำจากบุคลากรทางการแพทย์
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    AI INFLUENZA RISK SCREENING SYSTEM
+
+    <br><br>
+
+    STUDENT PROJECT / DEMONSTRATION SYSTEM
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document
+    .getElementById("screeningForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            /*
+             * สำคัญมาก
+             *
+             * ป้องกัน Form ส่งไป Flask
+             * และทำให้ผลแสดงในหน้าเดิม
+             */
+
+            event.preventDefault();
+
+
+            // =============================================
+            // รับข้อมูล
+            // =============================================
+
+            const age =
+                document
+                    .getElementById("age")
+                    .value;
+
+
+            const gender =
+                document
+                    .getElementById("gender")
+                    .value;
+
+
+            const temperature =
+                document
+                    .getElementById("temperature")
+                    .value;
+
+
+            // =============================================
+            // ตรวจสอบข้อมูล
+            // =============================================
+
+            if (
+                age === "" ||
+                gender === "" ||
+                temperature === ""
+            ) {
+
+                alert(
+                    "กรุณากรอกข้อมูลให้ครบ"
+                );
+
+                return;
+
+            }
+
+
+            // =============================================
+            // ตรวจสอบอุณหภูมิ
+            // =============================================
+
+            const temperatureValue =
+                parseFloat(
+                    temperature
+                );
+
+
+            if (
+                isNaN(temperatureValue) ||
+                temperatureValue < 30 ||
+                temperatureValue > 45
+            ) {
+
+                alert(
+                    "กรุณากรอกอุณหภูมิระหว่าง 30 - 45 °C"
+                );
+
+                return;
+
+            }
+
+
+            // =============================================
+            // นับอาการ
+            // =============================================
+
+            const selectedSymptoms =
+                document.querySelectorAll(
+                    'input[name="symptoms"]:checked'
+                );
+
+
+            const symptomCount =
+                selectedSymptoms.length;
+
+
+            // =============================================
+            // DEMO RISK RULE
+            // =============================================
+
+            let risk;
+
+            let resultClass;
+
+
+            if (symptomCount >= 6) {
+
+                risk =
+                    "🔴 ความเสี่ยงสูง";
+
+                resultClass =
+                    "result-high";
+
+            }
+
+            else if (symptomCount >= 3) {
+
+                risk =
+                    "🟠 ความเสี่ยงปานกลาง";
+
+                resultClass =
+                    "result-medium";
+
+            }
+
+            else {
+
+                risk =
+                    "🟢 ความเสี่ยงต่ำ";
+
+                resultClass =
+                    "result-low";
+
+            }
+
+
+            // =============================================
+            // แสดงผล
+            // =============================================
+
+            const result =
+                document.getElementById(
+                    "result"
+                );
+
+
+            result.innerHTML = `
+
+                <div class="result ${resultClass}">
+
+                    <div class="result-title">
+
+                        PRELIMINARY RISK RESULT
+
+                    </div>
+
+
+                    <div class="result-text">
+
+                        ${risk}
+
+                    </div>
+
+
+                    <div class="result-info">
+
+                        อายุ:
+                        ${age}
+                        ปี
+
+                        <br>
+
+                        เพศ:
+                        ${gender}
+
+                        <br>
+
+                        อุณหภูมิ:
+                        ${temperatureValue.toFixed(1)}
+                        °C
+
+                        <br>
+
+                        จำนวนอาการ:
+                        ${symptomCount}
+                        รายการ
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+            // =============================================
+            // เลื่อนไปยังผลลัพธ์
+            // =============================================
+
+            result.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

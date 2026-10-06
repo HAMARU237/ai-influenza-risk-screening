@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        สมัครสมาชิก | AI Influenza
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body class="dark-horror">
+
+
+<div class="scanlines"></div>
+
+
+<div class="register-page">
+
+
+    <div class="register-card">
+
+
+        <!-- Logo -->
+
+        <div class="biohazard-logo">
+
+            ☣
+
+        </div>
+
+
+        <!-- Title -->
+
+        <div class="system-label">
+
+            RISK SCREENING SYSTEM
+
+        </div>
+
+
+        <h1>
+
+            AI INFLUENZA
+
+        </h1>
+
+
+        <p class="register-subtitle">
+
+            ลงทะเบียนผู้ใช้งานระบบ
+
+        </p>
+
+
+        {% if error %}
+
+        <div class="horror-error">
+
+            ⚠ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- Register Form -->
+
+        <form method="POST">
+
+
+            <div class="dark-form-group">
+
+                <label>
+
+                    USERNAME
+
+                </label>
+
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="กรอกชื่อผู้ใช้งาน"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="dark-form-group">
+
+                <label>
+
+                    PASSWORD
+
+                </label>
+
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="กรอกรหัสผ่าน"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="dark-form-group">
+
+                <label>
+
+                    CONFIRM PASSWORD
+
+                </label>
+
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="กรอกรหัสผ่านอีกครั้ง"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="red-button"
+            >
+
+                CREATE ACCOUNT
+
+            </button>
+
+
+        </form>
+
+
+        <div class="register-divider">
+
+            <span>หรือ</span>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('login') }}"
+            class="back-login"
+        >
+
+            ← กลับไปหน้าเข้าสู่ระบบ
+
+        </a>
+
+
+        <div class="security-warning">
+
+            ⚠ ระบบนี้ใช้สำหรับการคัดกรอง
+            ความเสี่ยงเบื้องต้นเท่านั้น
+            ไม่ใช่การวินิจฉัยโรค
+
+        </div>
+
+
+        <div class="terminal-footer">
+
+            SYSTEM STATUS :
+            <span>ONLINE</span>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Login | AI Influenza
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body class="dark-horror">
+
+
+<div class="scanlines"></div>
+
+
+<div class="login-page">
+
+
+    <div class="login-card horror-card">
+
+
+        <div class="biohazard-logo">
+
+            ☣
+
+        </div>
+
+
+        <div class="system-label">
+
+            BIOHAZARD RESPONSE SYSTEM
+
+        </div>
+
+
+        <h1>
+
+            AI INFLUENZA
+
+        </h1>
+
+
+        <p class="login-subtitle">
+
+            ระบบ AI คัดกรองความเสี่ยง
+            โรคไข้หวัดใหญ่
+
+        </p>
+
+
+        {% if error %}
+
+        <div class="horror-error">
+
+            ⚠ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+
+            <div class="dark-form-group">
+
+                <label>
+
+                    USERNAME
+
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="ชื่อผู้ใช้งาน"
+                    required
+                >
+
+            </div>
+
+
+            <div class="dark-form-group">
+
+                <label>
+
+                    PASSWORD
+
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="รหัสผ่าน"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="red-button"
+            >
+
+                🔐 ACCESS SYSTEM
+
+            </button>
+
+
+        </form>
+
+
+        <div class="register-divider">
+
+            <span>ยังไม่มีบัญชี?</span>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('register') }}"
+            class="register-button"
+        >
+
+            CREATE NEW ACCOUNT
+
+        </a>
+
+
+        <div class="security-warning">
+
+            ⚠ ระบบนี้ใช้สำหรับการคัดกรอง
+            ความเสี่ยงเบื้องต้นเท่านั้น
+
+        </div>
+
+
+        <div class="terminal-footer">
+
+            SYSTEM STATUS :
+            <span>ONLINE</span>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
