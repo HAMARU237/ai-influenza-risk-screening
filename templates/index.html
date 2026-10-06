@@ -987,10 +987,10 @@
 
         <p>
 
-            ระบบคัดกรองอาการเบื้องต้น
-            โดยใช้ข้อมูลทั่วไป อุณหภูมิ
-            และอาการของผู้ใช้งาน
-            เพื่อประเมินระดับความเสี่ยง
+            ระบบคัดกรองไข้หวัดใหญ่เบื้องต้น
+            โดยใช้ Machine Learning Model
+            จากข้อมูลอาการและข้อมูลทั่วไป
+            เพื่อทำนายโอกาสพบไข้หวัดใหญ่
 
         </p>
 
@@ -1020,7 +1020,7 @@
          FORM
     ================================================= -->
 
-    <form id="screeningForm">
+    <form id="screeningForm" method="POST" action="{{ url_for('home') }}">
 
 
         <!-- =============================================
@@ -1086,44 +1086,17 @@
                                 -- เลือกเพศ --
                             </option>
 
-                            <option value="ชาย">
+                            <option value="Male">
                                 ชาย
                             </option>
 
-                            <option value="หญิง">
+                            <option value="Female">
                                 หญิง
-                            </option>
-
-                            <option value="อื่น ๆ">
-                                อื่น ๆ
                             </option>
 
                         </select>
 
                     </div>
-
-
-                    <!-- TEMPERATURE -->
-
-                    <div class="form-group full">
-
-                        <label>
-                            อุณหภูมิร่างกาย (°C)
-                        </label>
-
-                        <input
-                            type="number"
-                            id="temperature"
-                            name="temperature"
-                            min="30"
-                            max="45"
-                            step="0.1"
-                            placeholder="เช่น 38.5"
-                            required
-                        >
-
-                    </div>
-
 
                 </div>
 
@@ -1170,140 +1143,46 @@
                 <div class="symptom-grid">
 
 
+                
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="มีไข้"
-                        >
-
-                        <span>
-                            มีไข้
-                        </span>
-
+                        <input type="checkbox" name="fever" value="1">
+                        <span>มีไข้</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="ไอ"
-                        >
-
-                        <span>
-                            ไอ
-                        </span>
-
+                        <input type="checkbox" name="cough" value="1">
+                        <span>ไอ</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="เจ็บคอ"
-                        >
-
-                        <span>
-                            เจ็บคอ
-                        </span>
-
+                        <input type="checkbox" name="sore" value="1">
+                        <span>เจ็บคอ</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="น้ำมูกไหล"
-                        >
-
-                        <span>
-                            น้ำมูกไหล
-                        </span>
-
+                        <input type="checkbox" name="runny" value="1">
+                        <span>น้ำมูกไหล</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="ปวดศีรษะ"
-                        >
-
-                        <span>
-                            ปวดศีรษะ
-                        </span>
-
+                        <input type="checkbox" name="headache" value="1">
+                        <span>ปวดศีรษะ</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="ปวดกล้ามเนื้อ"
-                        >
-
-                        <span>
-                            ปวดกล้ามเนื้อ
-                        </span>
-
+                        <input type="checkbox" name="generalized" value="1">
+                        <span>อาการปวดเมื่อย / อาการทั่วไป</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="หนาวสั่น"
-                        >
-
-                        <span>
-                            หนาวสั่น
-                        </span>
-
+                        <input type="checkbox" name="malaise" value="1">
+                        <span>อ่อนเพลีย</span>
                     </label>
 
-
                     <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="อ่อนเพลีย"
-                        >
-
-                        <span>
-                            อ่อนเพลีย
-                        </span>
-
+                        <input type="checkbox" name="chill" value="1">
+                        <span>หนาวสั่น</span>
                     </label>
-
-
-                    <label class="symptom-item">
-
-                        <input
-                            type="checkbox"
-                            name="symptoms"
-                            value="สัมผัสผู้ป่วย"
-                        >
-
-                        <span>
-                            สัมผัสผู้ป่วย
-                        </span>
-
-                    </label>
-
 
                 </div>
 
@@ -1336,20 +1215,14 @@
 
 
                 <div class="warning">
-
-                    ระบบจะประเมินจากข้อมูลที่กรอก
-                    และแสดงผลทันทีบนหน้านี้
-
+                    ระบบจะส่งข้อมูลไปยัง Machine Learning Model
+                    เพื่อทำนายผลการคัดกรองจาก Features
+                    ที่ใช้ในการฝึกโมเดลจริง
                     <br><br>
-
                     <strong>
-                        DEMO RULE:
+                        AI MODEL:
                     </strong>
-
-                    การประเมินในเวอร์ชันนี้
-                    ใช้จำนวนอาการเป็นเกณฑ์ตัวอย่าง
-                    และยังไม่ใช่ Machine Learning Model จริง
-
+                    Decision Tree Classifier
                 </div>
 
 
@@ -1369,7 +1242,54 @@
 
                 <!-- RESULT -->
 
-                <div id="result"></div>
+                <div id="result">
+{% if error %}
+    <div class="result result-high">
+        <div class="result-title">SYSTEM ERROR</div>
+        <div class="result-text">ไม่สามารถประมวลผลได้</div>
+        <div class="result-info">
+            {{ error }}
+        </div>
+    </div>
+{% endif %}
+
+{% if result %}
+    <div class="result {% if prediction == 1 %}result-high{% else %}result-low{% endif %}">
+        <div class="result-title">
+            AI PREDICTION RESULT
+        </div>
+
+        <div class="result-text">
+            {% if prediction == 1 %}
+                🔴 {{ result }}
+            {% else %}
+                🟢 {{ result }}
+            {% endif %}
+        </div>
+
+        <div class="result-info">
+            อายุ:
+            {{ form_data.get("age") }}
+            ปี
+
+            <br>
+
+            เพศ:
+            {% if form_data.get("gender") == "Male" %}
+                ชาย
+            {% else %}
+                หญิง
+            {% endif %}
+
+            {% if probability is not none %}
+                <br>
+                Model probability:
+                {{ probability }}%
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+</div>
 
 
             </div>
@@ -1393,7 +1313,7 @@
 
         <br><br>
 
-        ผลลัพธ์จากระบบนี้เป็นเพียงการคัดกรองเบื้องต้น
+        ผลลัพธ์จาก Machine Learning Model นี้เป็นเพียงการคัดกรองเบื้องต้น
         สำหรับวัตถุประสงค์ของโครงงานเท่านั้น
         ไม่ควรใช้เพื่อวินิจฉัยโรค
         หรือใช้แทนคำแนะนำจากบุคลากรทางการแพทย์
@@ -1424,222 +1344,6 @@
 <!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
-
-<script>
-
-document
-    .getElementById("screeningForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            /*
-             * สำคัญมาก
-             *
-             * ป้องกัน Form ส่งไป Flask
-             * และทำให้ผลแสดงในหน้าเดิม
-             */
-
-            event.preventDefault();
-
-
-            // =============================================
-            // รับข้อมูล
-            // =============================================
-
-            const age =
-                document
-                    .getElementById("age")
-                    .value;
-
-
-            const gender =
-                document
-                    .getElementById("gender")
-                    .value;
-
-
-            const temperature =
-                document
-                    .getElementById("temperature")
-                    .value;
-
-
-            // =============================================
-            // ตรวจสอบข้อมูล
-            // =============================================
-
-            if (
-                age === "" ||
-                gender === "" ||
-                temperature === ""
-            ) {
-
-                alert(
-                    "กรุณากรอกข้อมูลให้ครบ"
-                );
-
-                return;
-
-            }
-
-
-            // =============================================
-            // ตรวจสอบอุณหภูมิ
-            // =============================================
-
-            const temperatureValue =
-                parseFloat(
-                    temperature
-                );
-
-
-            if (
-                isNaN(temperatureValue) ||
-                temperatureValue < 30 ||
-                temperatureValue > 45
-            ) {
-
-                alert(
-                    "กรุณากรอกอุณหภูมิระหว่าง 30 - 45 °C"
-                );
-
-                return;
-
-            }
-
-
-            // =============================================
-            // นับอาการ
-            // =============================================
-
-            const selectedSymptoms =
-                document.querySelectorAll(
-                    'input[name="symptoms"]:checked'
-                );
-
-
-            const symptomCount =
-                selectedSymptoms.length;
-
-
-            // =============================================
-            // DEMO RISK RULE
-            // =============================================
-
-            let risk;
-
-            let resultClass;
-
-
-            if (symptomCount >= 6) {
-
-                risk =
-                    "🔴 ความเสี่ยงสูง";
-
-                resultClass =
-                    "result-high";
-
-            }
-
-            else if (symptomCount >= 3) {
-
-                risk =
-                    "🟠 ความเสี่ยงปานกลาง";
-
-                resultClass =
-                    "result-medium";
-
-            }
-
-            else {
-
-                risk =
-                    "🟢 ความเสี่ยงต่ำ";
-
-                resultClass =
-                    "result-low";
-
-            }
-
-
-            // =============================================
-            // แสดงผล
-            // =============================================
-
-            const result =
-                document.getElementById(
-                    "result"
-                );
-
-
-            result.innerHTML = `
-
-                <div class="result ${resultClass}">
-
-                    <div class="result-title">
-
-                        PRELIMINARY RISK RESULT
-
-                    </div>
-
-
-                    <div class="result-text">
-
-                        ${risk}
-
-                    </div>
-
-
-                    <div class="result-info">
-
-                        อายุ:
-                        ${age}
-                        ปี
-
-                        <br>
-
-                        เพศ:
-                        ${gender}
-
-                        <br>
-
-                        อุณหภูมิ:
-                        ${temperatureValue.toFixed(1)}
-                        °C
-
-                        <br>
-
-                        จำนวนอาการ:
-                        ${symptomCount}
-                        รายการ
-
-                    </div>
-
-
-                </div>
-
-            `;
-
-
-            // =============================================
-            // เลื่อนไปยังผลลัพธ์
-            // =============================================
-
-            result.scrollIntoView({
-
-                behavior: "smooth",
-
-                block: "center"
-
-            });
-
-        }
-    );
-
-</script>
-
-
 </body>
 
 </html>

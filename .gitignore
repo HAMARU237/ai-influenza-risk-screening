@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 patients.db
 users.json
+Deidentified_data_for_PLOS_2009_2014.csv
+influenza_clean.csv
